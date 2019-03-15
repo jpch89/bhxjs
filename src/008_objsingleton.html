@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // Global 全局的 终极的 兜底的对象（不存在的）
+    // encodeURI、encodeURIComponent
+    var uri = "http://www.baidu.com cn";
+    var str1 = encodeURI(uri);  // 比如: 和 斜杠不会进行编码
+    var str2 = encodeURIComponent(uri);  // 常用，任何不标准的文字都会进行编码
+    console.log(str1);  // http://www.baidu.com%20cn
+    console.log(str2);  // http%3A%2F%2Fwww.baidu.com%20cn
+
+    // decodeURI、decodeURIComponent
+    console.log(decodeURI(str1));  // http://www.baidu.com cn
+    console.log(decodeURIComponent(str2));  // http://www.baidu.com cn
+
+    // eval(string) 方法：类似无形的 JavaScript 解析器
+    var str3 = "var a = 10; var b = 20;";
+    eval(str3);
+    console.log(a + b);  // 30
+    // 常用的方式：后台给前台传一个字符串，前台把它转成对象
+
+    // 数组字符串，直接使用 eval(stringarr)
+    var strobj = "{name: '张三', age: 20}";
+    var obj = eval("(" + strobj + ")");  // 括号表示封闭作用域，然后它就执行了
+    console.log(obj);
+
+    // parseInt，parseFloat
+    // 把字符串转换成 Number 类型
+    var num1 = parseInt("30");
+    var num2 = parseFloat("20.5");
+    console.log(num1);  // 30
+    console.log(typeof num1 === "number")  // true
+
+    console.log(num2);  // 20.5
+    console.log(typeof num2 === "number")  // true
+
+    // escape 和 unescape，针对URI的方法
+    var str4 = "王二小";
+    var str5 = escape(str4);
+    console.log(str5);  // %u738B%u4E8C%u5C0F
+    var str6 = unescape(str5);
+    console.log(str6);  // 王二小
+
+    // isNaN
+    // 如果不是 Number 类型，返回 true，其余情况返回 false
+    var str7 = "哈哈";
+    var num3 = 777;
+    var nan = NaN;
+    var str8 = "10";  // 会进行隐式转换
+    var str9 = "3.3";
+    console.log(isNaN(str7));  // true
+    console.log(isNaN(num3));  // false
+    console.log(isNaN(nan));  // true
+    console.log(isNaN(str8));  // false
+    console.log(isNaN(str9));  // false
+
+    // 在 js 中，只有 NaN 自己不等于自己本身
+    if (NaN == NaN || NaN === NaN) {
+        console.log("相等");
+    } else {
+        console.log("不相等");  // 不相等
+    }
+
+    var date = new Date();
+    console.log(date);  // Fri Mar 15 2019 21:15:48 GMT+0800 (中国标准时间)
+
+    // var year = date.getYear();  // 这样不准确！
+    var year = date.getFullYear();
+    console.log(year);  // 2019
+
+    // 月份是从 0 开始
+    var month = date.getMonth() + 1;
+    console.log(month);  // 3
+
+    // 获取日期
+    var da = date.getDate();
+
+    var hours = date.getHours();
+    var min = date.getMinutes();
+    var sc = date.getSeconds();
+
+    var day = date.getDay();  // 0（周日）到 6（周六）
+    document.write("今天是" + year + "年" + month + "月" + da + "日" + "<br />");
+    document.write(hours + ":" + min + ":" + sc + "星期" + day);
+
+    /*
+        今天是2019年3月15日
+        21:24:1星期5
+    */
+
+    console.log(date.getTime());  // 获取时间戳
+    // 1552656395467
+</script>
+</body>
+</html>

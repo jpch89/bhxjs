@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/html">
+    var a = 3;  // number
+
+    function test() {
+        var a = 2;  // 局部变量
+        alert(a);
+        c = 5;
+    }
+
+    test();
+
+    // 如果 alert(c) 在 test() 执行之前会报错
+    // c is not defined
+    alert(c);
+</script>
+<script>
+    var a1 = 10;
+    var a2 = 10.5;
+    var a3 = NaN;
+    var a4 = 1 / 0;  // 正无穷
+    var a5 = 070;  // 8进制
+    var a6 = 0xA;  // 16进制
+
+    var a6 = 0.1;
+    var a7 = 0.2;
+    if (a6 + a7 == .3) {
+        console.log("等于");
+    } else {
+        console.log("不等于");  // 不等于
+    }
+
+    var a8 = parseInt("aaabbc77");
+    console.log(a8);  // NaN
+    var a9 = parseInt("77aa");
+    console.log(a9);  // 77
+
+    // undefined 数据类型，它的值只有一个：undefined
+    // 表示变量被声明了，但是没有被赋值
+    var b1;
+    console.log(b1);  // undefined
+
+    // Null 空值
+    var b2 = null;
+    console.log(b2);
+
+    // String
+    var str1 = "我是字符串1";
+    var str2 = "我是字符串2";
+
+    // Bealoon
+    var flag1 = false;
+    var flag2 = true;
+
+    // 引用数据类型
+    var arr = [1, 2, 3];
+    var dates = new Date();
+    var obj = {};
+
+    // typeof 操作符，用来判断数据类型
+    var a = 10;
+    var b = 10.3;
+    var c = true;
+    var d = "abcd";
+    var e = new Date()
+    var f = NaN;
+    var g = [1, 2, 3];
+    var h = undefined;
+    var i = null;
+    console.log(typeof a);  // number
+    console.log(typeof b);  // number
+    console.log(typeof c);  // boolean
+    console.log(typeof d);  // string
+    console.log(typeof e);  // object
+    console.log(typeof f);  // number
+    console.log(typeof g);  // object
+    console.log(typeof h);  // undefined
+    console.log(typeof i);  // object
+    // null 表示对一个空对象的引用
+
+</script>
+</body>
+</html>

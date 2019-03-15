@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 新加的位置方法：indexOf，lastIndexOf
+    // indexOf
+    // 一个参数：返回索引位置
+    var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+    var index = arr.indexOf(4);
+    console.log(index);  // 3
+    // 两个参数：第一个参数表示起始位置，第二个参数是要查找的值
+    index = arr.indexOf(4, 4);
+    console.log(index);  // 5
+    // 注意：查找的时候使用的是 === 比较
+
+    // lastIndexOf
+    // 从后往前找，但是索引还是从前往后排布的
+    index = arr.lastIndexOf(2);
+    console.log(index);  // 7
+
+    // 5 个新加的迭代方法
+    // every：对于数组的每一个元素运行回调函数，如果都返回 true，最后返回 true
+    //        如果有一项返回 false，最后返回 false
+    var res = arr.every(function(item, index, array){
+        return item > 2;
+    });
+    console.log(res);  // false
+    res = arr.every(function (item, index, array) {
+        return item > 0;
+    });
+    console.log(res);  // true
+
+    // filter：对数组的每一个元素运行函数，如果结果为真，收集该结果，把过滤后的结果返回
+    res = arr. filter(function (item, index, array){
+        return item > 2;
+    });
+    console.log(res.toString());  // 3,4,5,4,3
+
+    // forEach：循环数组的每一个值，并执行一个方法
+    arr.forEach(function (item, index, array){
+        console.log(item);
+    });
+
+    // map：对于数组的每一个元素运行函数，返回结果
+    res = arr.map(function (item, index, array){
+        return item * 2;
+    });
+    console.log(res.toString());  // 2,4,6,8,10,8,6,4,2
+
+    // some：对于数组的每一个元素运行回调函数，如果有一项返回 true，最终返回true
+    //       如果都是 false，则返回 false
+
+    // 缩小方法
+    // reduce
+    // 参数意义：前一个值，当前值，索引，数组
+    // 个人备注：mdn里面把第一个写成accumulator，累加器，我觉得比较好
+    res = arr.reduce(function(prev, cur, index, array){
+        return prev + cur;
+    });
+    console.log(res);  // 25
+    // reduceRight 从右边遍历
+</script>
+</body>
+</html>

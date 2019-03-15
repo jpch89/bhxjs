@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 原型：prototype
+
+    // 构造函数方式
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.sayName = function () {
+            console.log("我是" + this.name + "！");
+        };
+        // 给一个函数引用，每个对象共用一个
+        this.sayNameNoRepeat = sayNameNoRepeat;
+    }
+    var p1 = new Person("张三", 20);
+    var p2 = new Person("李四", 3);
+    console.log(p1.sayName === p2.sayName);  // false
+
+    // 如何让 sayName 不重复创建
+    function sayNameNoRepeat() {
+        console.log("我是sayNameNoRepeat：我是" + this.name);
+    }
+    p1.sayNameNoRepeat();  // 我是sayNameNoRepeat：我是张三
+    p2.sayNameNoRepeat();  // 我是sayNameNoRepeat：我是李四
+    console.log(p1.sayNameNoRepeat === p2.sayNameNoRepeat);  // true
+
+    // 但是上面这种方法有缺点：
+    // sayNameNoRepeat 是一个全局的函数
+    // 不能仅仅对 Person 类的对象提供服务
+    // 如何改进？
+    // 我能不能把公共的属性、方法放到一个地方，new 的时候只创建一次呢？
+
+    // 创建每一个函数的时候，都有一个 prototype 属性。
+    // 它是一个指针，这个指针总指向一个对象。
+    // 这个对象的用途就是将特定的属性和方法包含在内，起到一个所有实例所共享的作用。
+
+    function Dog() {
+
+    }
+
+    var obj = Dog.prototype;
+    console.log(obj.constructor);
+    /*
+        ƒ Dog() {
+
+        }
+    */
+
+    console.log(typeof obj); // object
+    // 给原型对象动态添加属性和方法，它们被所有实例共享
+    obj.name = "大狗子";
+    obj.age = 10;
+    obj.sayName = function () {
+        console.log(this.name);
+    };
+
+    var d1 = new Dog();
+    var d2 = new Dog();
+    d1.sayName();  // 大狗子
+    d2.sayName();  // 大狗子
+    console.log(d1.sayName === d2.sayName);  // true
+
+    // 构造函数、原型对象、实例对象的关系
+    // 构造函数.prototype --> 原型对象
+    // 原型对象.constructor --> 构造函数
+    // 每个原型对象的构造器，都是当前构造函数本身
+    console.log(obj.constructor === Dog);  // true
+
+    // 错误用法，不能从实例这样访问到原型对象：实例对象.prototype --> 原型对象
+    console.log(d1.prototype === obj);  // false
+    console.log(d1.prototype);  // undefined
+
+    // 判断原型对象是不是实例对象的原型要用：原型对象.isPrototypeOf(实例对象)
+    console.log(obj.isPrototypeOf(d1));  // true
+    console.log(obj.isPrototypeOf(d2));  // true
+    var other = new Object();
+    console.log(obj.isPrototypeOf(other));  // false
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // isPrototypeOf(实例); 判断原型的方法
+
+    // ECMA5：Object.getPrototypeOf()：根据实例对象获得原型对象
+    // 不能用上节的错误写法：实例对象.prototype --> 原型对象
+    function Person() {
+
+    }
+    Person.prototype.name = "张三";
+    Person.prototype.age = 20;
+    Person.prototype.sayName = function () {
+        console.log("我是原型对象的方法！");
+    }
+    var p1 = new Person();
+    p1.sayName();  // 我是原型对象的方法！
+
+
+    var prototypeObj = Object.getPrototypeOf(p1);
+    console.log(prototypeObj === Person.prototype);  // true
+
+    // 每次代码读取一个对象的属性的时候，首先会进行一次搜索，搜索实例对象
+    // 如果没有，再去原型对象里搜索
+    console.log(p1.name);  // 张三
+    var p2 = new Person();
+    p2.name = "王小二";
+    console.log(p2.name);  // 王小二
+
+    // 如果实例中已经有了 name 属性，但是就是想获取原型对象的 name 属性，怎么办？
+    delete p2.name;
+    console.log(p2.name);  // 张三
+
+    // 原型的小技巧，可以恢复密码
+    // 比如初始密码都放在原型里面，password = 123
+    // 假如用户忘了自己的密码，可以直接把用户的密码删了，让它从原型里找到初始密码 123
+
+    // 判断一个对象属性，是属于原型属性还是实例属性
+    var p3 = new Person();
+    // 只要是实例，都有一个方法 hasOwnProperty()，判断是不是自己的属性
+    console.log(p3.hasOwnProperty("name"));  // false
+    p3.name = "李逵";
+    console.log(p3.hasOwnProperty("name"));  // true
+
+    // in 操作符：可以用于 for-in 循环，多用于遍历对象到底有多少属性
+    // in 操作符也可以单独使用，可以判断属性到底属不属于某对象
+    // 但是无法区分实例属性和原型属性，只要有，都返回 true
+    var p4 = new Person();
+    console.log("name" in p1);  // true
+    var p5 = new Person();
+    p5.name = "刘备";
+    console.log("name" in p2);  // true
+    // 总结：in 判断属性是否存在于实例对象或原型对象中
+
+    // 在原型对象中是否存在这个属性
+    // 第一个参数：当前对象，第二个参数：要判断的属性
+    function hasPrototypeProperty(object, name) {
+        return !object.hasOwnProperty(name) && name in object;
+    }
+
+    var p6 = new Person();
+    console.log(hasPrototypeProperty(p6, "name"));  // true
+    p6.name = "路飞";
+    console.log(hasPrototypeProperty(p6, "name"));  // false
+
+    // ECMA5 新特性
+    // Object.keys(对象); 拿到对象里所有属性，返回一个数组。
+    var p7 = new Person();
+    p7.name = "阿飞";
+    p7.age = 77;
+    var attrs = Object.keys(p7);  // attrs 是一个数组！
+    console.log(attrs.constructor.name);  // Array
+    var attrsproto = Object.keys(Person.prototype);
+    // 用逗号连接元素
+    console.log(attrsproto.toString());  // name,age,sayName
+
+    // ECMA5 constructor属性：该属性是不能被枚举的，也就是说不能用 for in 循环找到
+    // 它有个 enumearble 属性是设置为 false 的
+    // Object.getOwnPropertyNames 枚举对象所有属性，不管内部是否能被枚举
+    var attrs3 = Object.getOwnPropertyNames(Person.prototype);
+    console.log(attrs3.toString());  // constructor,name,age,sayName
+    // 我的疑问：为什么对象里面没有 constructor 属性呢？只有原型才有 constructor？
+    console.log(Object.getOwnPropertyNames(p7).toString());  // name,age
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function Map() {
+        // private
+        var obj = {};  // 空的对象容器，承装键值对
+
+        // put 方法
+        this.put = function (key, value) {
+            obj[key] = value;  // 把键值对绑定到 obj 对象上
+        };
+
+        // size 方法：获得map容器个数
+        this.size = function () {
+            var count = 0;
+            for (var attr in obj) {
+                count++;
+            }
+            return count;
+        };
+
+
+        // get 方法：根据 key 取得 value
+        this.get = function (key) {
+            if (obj[key] || obj[key] === 0 || obj[key] === false) {
+                return obj[key];
+            } else {
+                return null;
+            }
+        };
+
+        // remove 删除方法
+        this.remove = function (key) {
+            if (obj[key] || obj[key] === 0 || obj[key] === false) {
+                delete obj[key];
+            }
+        };
+
+        // eachMap 遍历 Map 容器的方法
+        this.eachMap = function (fn) {
+            for (var attr in obj) {
+                fn(attr, obj[attr]);
+            }
+        };
+    }
+
+
+    // 模拟 Java 里面的 Map
+    var m = new Map();
+    m.put("01", "abc");
+    m.put("02", 120);
+    m.put("03", true);
+    m.put("04", new Date());
+
+    console.log(m.size());  // 4
+
+    console.log(m.get("02"));  // 120
+    console.log(m.get("不存在"));  // null
+
+    console.log(m.get("03"));  // true
+    m.remove("03");
+    console.log(m.get("03"));  // null
+
+    m.eachMap(function (key, value) {
+        console.log(key + ":" + value);
+    });
+
+    /*
+    01:abc
+    02:120
+    04:Fri Mar 15 2019 20:17:03 GMT+0800 (中国标准时间)
+    */
+</script>
+</body>
+</html>

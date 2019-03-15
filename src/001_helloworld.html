@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<!-- 内部脚本 -->
+		<script type="text/javascript" charset="utf-8">
+			// helloworld
+			// window.alert();
+			// window 是当前浏览器对象，可以省略
+			alert("Hello JavaScript");  // 弹出警告框
+
+			// 文档对象是 document，这个不能省略！
+			document.write("我是第一个程序...");
+
+			// 把内容打印到控制台
+			console.info("Hello JS");
+		</script>
+		<!-- 外部引入 -->
+		<!-- 外部引入之后，就不能在里面写代码了！ -->
+		<!-- 解析顺序：从上到下，边解析边执行 -->
+		<script src="../commons/001.js" defer="defer">
+			// defer 是延迟执行，等整个页面加载完毕再执行
+			// 相当于 window.onload 之后
+		</script>
+		<script>
+			alert("我是内部代码");
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

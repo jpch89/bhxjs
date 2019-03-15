@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 新建对象形式0：用 Object 创建对象，并动态添加属性
+    var obj = new Object();
+    var obj1 = {};
+
+    obj.name = "张三";
+    obj.sex = "男";
+    obj.sayName = function () {alert("我是张三！")};
+
+    // 类的概念
+    // 形式1：工厂模型
+    function createPerson(name, sex, age) {
+        var o = new Object();
+        o.name = name;
+        o.sex = sex;
+        o.age =age;
+        o.sayName = function () {
+            console.log("我是" + o.name);
+        };
+        return o;
+    }
+
+    var p1 = createPerson("张三", "男", 20);
+    var p2 = createPerson("李四", "女", 35);
+    console.log(p1.name);
+    console.log(p2.age);
+    p2.sayName();
+
+    // 形式2：构造函数式
+    // new Array()
+    // new Date()
+    // 约定俗成，函数的第一个字母大写，就表示一个类
+    function Person(name, age, sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.sayName = function () {
+            console.log("我是" + this.name + "！");
+        }
+    }
+    // 构造对象，要使用 new 关键字，传递参数，执行模板代码，返回对象
+    var p3 = new Person("王五", 20, "男");
+    p3.sayName();
+
+    // 对象的属性
+    // constructor：保存用于创建当前对象的函数（即构造函数）
+    console.log(p3.constructor === Person);  // true
+    console.log(p1.constructor === Person);  // false
+
+    // 另外一种判断方法
+    // a instanceof A
+    // a 是不是 A 的实例
+    console.log(p3 instanceof Person);  // true
+    console.log(p1 instanceof Object);  // true
+    console.log(p3 instanceof Object);  // true
+
+    // 创建对象的方式：
+    // 1. 当做构造函数去使用
+    var p4 = new Person("狗蛋", 33, "女");
+    // 2. 作为普通函数去调用
+    Person("王二小", 20, "男");
+    // 问题：this指的是谁？
+    // 相当于是 window.Person ... ，所以 this 就是 window
+    // 相当于在全局定义了属性并复制
+    console.log(name);  // 王二小
+    console.log(age);  // 20
+    console.log(window.sex);  // 男
+    sayName();  // 我是王二小！
+    // 3. 在另一个对象的作用域中调用
+    var o = new Object();
+    // call apply
+    Person.call(o, "张三丰", 44, "男");
+    o.sayName();  // 我是张三丰！
+</script>
+</body>
+</html>

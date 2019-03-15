@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var arr = [2, 1, 2, 10, 2, 3, 5, 5, 1, 10, 13];
+    // js对象的特性：在js对象中，key是永远不会重复的
+    // 个人理解：其实就是利用Python中的字典（哈希表）去重啊！
+    // 字典中的键不能重复！
+
+    // 步骤：
+    // 1. 把数组转成js对象
+    // 2. 把数组中的值，变成js对象中的key
+    // 3. 把对象还原成数组
+
+    // 把数组转成对象：
+    /*
+    var toObject = function (arr) {
+    }
+    */
+    function toObject(arr) {
+        var obj = {};  // 私有的对象
+        var j;
+        for(var i = 0, j = arr.length; i < j; i++){
+            obj[arr[i]] = true;
+        }
+        return obj;
+    }
+
+    // 把对象转成数组
+    function keys(obj){
+        var arr = [];  // 私有对象
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) {  // 雅虎YUI底层代码
+                arr.push(attr);
+            }
+        }
+        return arr;
+    }
+
+    // 综合的方法：去掉数组中的重复项
+    function unique(newarr) {
+        return keys(toObject(newarr));
+    }
+
+    console.log(arr.toString());  // 2,1,2,10,2,3,5,5,1,10,13
+    var newarr = unique(arr);
+    console.log(newarr.toString());  // 1,2,3,5,10,13
+</script>
+</body>
+</html>

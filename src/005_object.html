@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // Object 是所有类的基础类
+    // 实例化对象
+    // var obj = new Object();
+
+    // 这样写也没错，但是不建议
+    // var obj = new Object;
+
+    // 字面量形式
+    var obj = {};
+
+    // 给对象设置属性和方法
+    obj.name = "张三";
+    obj.age = 20;
+    obj.sex = "男";
+    obj.say = function () {
+        console.log("Hello world!");
+    };
+
+    // 访问对象的属性或方法
+    console.log(obj.name);  // 张三
+    console.log(obj.age);  // 20
+    obj.say();  // Hello world!
+
+    // delete 操作符，删除对象的属性或方法
+    delete obj.age;
+    console.log(obj.age);  // undefined
+
+    delete obj.say;
+    // obj.say();  // 报错：obj.say is not a function
+
+    // 如何去遍历一个JS对象
+    // for in 语句
+    // 也可以遍历数组（数组也是对象）
+    for (var attr in obj) {
+        console.log(attr + obj[attr]);
+    }
+    // name张三
+    // sex男
+
+    // 注意，必须要用中括号才能访问
+    // 使用中括号给对象的属性赋值，一定要用引号引起来
+    obj["birthday"] = "1980-08-07";
+    // 个人理解：其实这就相当于是 Python 中的字典语法
+    console.log(obj["birthday"]);  // 1980-08-07
+    console.log(obj["name"]);  // 张三
+
+    // constructor 属性
+    console.log(obj.constructor);  // ƒ Object() { [native code] }
+    var arr = [];
+    console.log(arr.constructor);  // ƒ Array() { [native code] }
+
+    // hasOwnProperty(propertyName) 用于检测给定属性在对象中是否存在
+    console.log(obj.hasOwnProperty("birthday"));  // true
+    console.log(obj.hasOwnProperty("age"));  // false
+
+    // isPrototypeOf(object) 检测原型
+
+    // propertyIsEnumerable(propertyName)
+    // 检测给定的属性是否能被 for in 枚举出来
+    console.log(obj.propertyIsEnumerable("birthday"));  // true
+
+    // toLocaleString()
+    // toString()
+    // valueOf()
+
+</script>
+</body>
+</html>
